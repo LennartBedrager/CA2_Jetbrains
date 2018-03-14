@@ -19,10 +19,12 @@ public class Schema {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("jetbrainsDatabase");
-        EntityManager em = emf.createEntityManager();
         
         Persistence.generateSchema("jetbrainsDatabase", null);
+        Generator pg2 = new Generator();
+        pg2.putGeneratedPeopleInDatabase(30);
+        pg2.putGeneratedCompaniesInDatabase(30);
+        
     }
     
 }
