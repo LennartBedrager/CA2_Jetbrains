@@ -19,10 +19,18 @@ public class Address implements Serializable {
     private String street;
     private String additionalInfo;
    // @JoinColumn(name="ADDRESS_ZIPCODES")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private CityInfo city;
-    
 
+    public Address() {
+    }
+
+    public Address(String street, String additionalInfo) {
+        this.street = street;
+        this.additionalInfo = additionalInfo;
+    }
+    
+    
     public Long getId() {
         return id;
     }
