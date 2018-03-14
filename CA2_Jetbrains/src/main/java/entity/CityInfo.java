@@ -18,6 +18,14 @@ public class CityInfo implements Serializable {
     private long zip;
     private String city;
 
+    public CityInfo() {
+    }
+
+    public CityInfo(long zip, String city) {
+        this.zip = zip;
+        this.city = city;
+    }
+    
     public long getZip() {
         return zip;
     }

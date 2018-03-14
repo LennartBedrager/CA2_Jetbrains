@@ -18,18 +18,18 @@ public class Address implements Serializable {
     private Long id;
     private String street;
     private String additionalInfo;
-   // @JoinColumn(name="ADDRESS_ZIPCODES")
+    // @JoinColumn(name="ADDRESS_ZIPCODES")
     @ManyToOne(cascade = CascadeType.PERSIST)
     private CityInfo city;
 
     public Address() {
     }
 
-    public Address(String street, String additionalInfo) {
+    public Address(String street, String additionalInfo, CityInfo city) {
         this.street = street;
         this.additionalInfo = additionalInfo;
+        this.city = city;
     }
-    
     
     public Long getId() {
         return id;

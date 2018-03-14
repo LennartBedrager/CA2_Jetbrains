@@ -6,6 +6,7 @@
 package builder;
 
 import entity.Address;
+import entity.CityInfo;
 import entity.Company;
 import entity.Hobby;
 import entity.Person;
@@ -15,6 +16,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 /**
  *
@@ -26,9 +28,20 @@ public class Generator {
     EntityManager em = emf.createEntityManager();
 
     public void putGeneratedPeopleInDatabase(int amount) {
+        //Person
         ArrayList<String> firstNames = Generator.firstNames();
         ArrayList<String> lastNames = Generator.lastNames();
+
+        //Hobbies
         List<Hobby> listOfHobbies = Generator.differentHobbies();
+
+        //Addresses
+        ArrayList<String> streetNames = Generator.differentStreetNames();
+        ArrayList<String> addressInfo = Generator.differentAdditionalInfoAddresses();
+
+        //Zipcodes
+        List<CityInfo> listOfInfo = Generator.getAllCityInfos();
+
         for (int i = 0; i < amount; i++) {
             em.getTransaction().begin();
             Person person = new Person(firstNames.get((int) (Math.random() * firstNames.size())), lastNames.get((int) (Math.random() * lastNames.size())));
@@ -36,24 +49,32 @@ public class Generator {
                 person.addPhoneNumber(new Phone(Generator.randomizePhones(), "APhoneNumber"));
             }
             person.addHobby(listOfHobbies.get((int) (Math.random() * listOfHobbies.size())));
-            person.setAddress(new Address("Test", "Test"));
+            person.setAddress(new Address(streetNames.get((int) (Math.random() * streetNames.size())), addressInfo.get((int) (Math.random() * addressInfo.size())), listOfInfo.get((int) (Math.random() * listOfInfo.size()))));
             em.persist(person);
             em.getTransaction().commit();
         }
     }
 
     public void putGeneratedCompaniesInDatabase(int amount) {
+        //Company
         ArrayList<String> companyNames = Generator.companyNames();
         ArrayList<String> companyDescs = Generator.companyDescriptions();
         ArrayList<String> marketValues = Generator.marketValues();
 
+        //Addresses
+        ArrayList<String> streetNames = Generator.differentStreetNames();
+        ArrayList<String> addressInfo = Generator.differentAdditionalInfoAddresses();
+        
+        //Zipcodes
+        List<CityInfo> listOfInfo = Generator.getAllCityInfos();
+        
         for (int i = 0; i < amount; i++) {
             em.getTransaction().begin();
             Company company = new Company(companyNames.get((int) (Math.random() * companyNames.size())), companyDescs.get((int) (Math.random() * companyDescs.size())), Generator.companyCvrs(), (int) (Math.random() * 999), marketValues.get((int) (Math.random() * marketValues.size())));
             for (int j = 0; j <= (int) (Math.random() * 2); j++) {
                 company.addPhoneNumber(new Phone(Generator.randomizePhones(), "APhoneNumber"));
             }
-            company.setAddress(new Address("Test", "Test"));
+            company.setAddress(new Address(streetNames.get((int) (Math.random() * streetNames.size())), addressInfo.get((int) (Math.random() * addressInfo.size())), listOfInfo.get((int) (Math.random() * listOfInfo.size()))));
             em.persist(company);
             em.getTransaction().commit();
         }
@@ -84,7 +105,7 @@ public class Generator {
         lastNames.add("White");
         return lastNames;
     }
-    
+
     private static String randomizePhones() {
         StringBuilder sb = new StringBuilder();
         sb.append((int) (Math.random() * 99));
@@ -129,16 +150,16 @@ public class Generator {
 
     private static ArrayList<String> marketValues() {
         ArrayList marketValues = new ArrayList();
-        marketValues.add("Test 1");
-        marketValues.add("Test 2");
-        marketValues.add("Test 3");
-        marketValues.add("Test 4");
-        marketValues.add("Test 5");
-        marketValues.add("Test 6");
-        marketValues.add("Test 7");
+        marketValues.add("Kvalitets varer");
+        marketValues.add("Gode IT-løsninger");
+        marketValues.add("Produktiv viden");
+        marketValues.add("God sammenhold");
+        marketValues.add("Robot teknologier");
+        marketValues.add("Hurtige produktioner");
+        marketValues.add("God kundetilfredshed");
         return marketValues;
     }
-    
+
     private static List<Hobby> differentHobbies() {
         List<Hobby> diffHobbies = new ArrayList();
         diffHobbies.add(new Hobby("Football", "Sport where you kick a ball with your foot"));
@@ -151,5 +172,49 @@ public class Generator {
         diffHobbies.add(new Hobby("Fortnite", "eSports Third person shooter open world"));
         diffHobbies.add(new Hobby("Swimming", "Sport where you swim laps"));
         return diffHobbies;
+    }
+
+    private static ArrayList<String> differentStreetNames() {
+        ArrayList streetNames = new ArrayList();
+        streetNames.add("Dannevirkegade");
+        streetNames.add("Hesseløgade");
+        streetNames.add("Bakerstreet");
+        streetNames.add("Vesterlundvej");
+        streetNames.add("Rybjerg Alle");
+        streetNames.add("Hobrovej");
+        streetNames.add("Brohusgade");
+        streetNames.add("Klaus Berntsens Vej");
+        streetNames.add("Labyrinten");
+        streetNames.add("Tjele Alle");
+        streetNames.add("Fundersvej");
+        return streetNames;
+    }
+
+    private static ArrayList<String> differentAdditionalInfoAddresses() {
+        ArrayList addresses = new ArrayList();
+        addresses.add("28 1 mf.");
+        addresses.add("15 2 th.");
+        addresses.add("1 2 tv.");
+        addresses.add("3 3 mf.");
+        addresses.add("5 3 th.");
+        addresses.add("6 4 tv.");
+        addresses.add("102 5 mf.");
+        addresses.add("80 1 th.");
+        addresses.add("77 3 tv.");
+        addresses.add("65 2 mf.");
+        return addresses;
+    }
+
+    private static List<CityInfo> getAllCityInfos() {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("jetbrainsDatabase");
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            Query query = em.createQuery("SELECT p FROM CityInfo p");
+            List<CityInfo> listOfInfos = query.getResultList();
+            return listOfInfos;
+        } finally {
+            em.close();
+        }
     }
 }
