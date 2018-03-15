@@ -9,7 +9,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 /**
- * 
+ *
  * Facade for persisting and removing entities of the Person class
  *
  * @author KnaldeKalle
@@ -17,12 +17,12 @@ import javax.persistence.Query;
 public class PersonFacadeImpl implements PersonFacadeInterface {
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("jetbrainsDatabase");
-    
-    EntityManager  em;
 
+    EntityManager em;
 
+    //C
     @Override
-    public Person createPerson(Person person) {
+    public void createPerson(Person person) {
         em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
@@ -31,12 +31,57 @@ public class PersonFacadeImpl implements PersonFacadeInterface {
         } finally {
             em.close();
         }
-        return person;
-
     }
 
+    //R
     @Override
-    public Person deletePerson(int id) {
+    public Person getPerson(int id) {
+        em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            Query q = em.createQuery("SELECT p FROM Person p WHERE p.id = :id");
+            q.setParameter("id", id);
+            em.getTransaction().commit();
+            Person person = (Person) q.getSingleResult();
+            return person;
+        } finally {
+            em.close();
+        }
+    }
+
+    //U
+    /*@Override
+    public void updatePerson(Person person, int id) {
+        em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            Query q = em.createQuery("UPDATE Person p SET p.firstName ='" + person.getFirstName() + "', p.lastName ='" + person.getLastName() + " WHERE p.id = :id");
+            q.setParameter("id", id);
+            q.executeUpdate();
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+    } */
+
+    //U
+    @Override
+    public void updatePerson(Person person) {
+        EntityManager em = emf.createEntityManager();
+        Person p = em.find(Person.class, person.getId());
+        try {
+            em.getTransaction().begin();
+            p.setFirstName(person.getFirstName());
+            p.setLastName(person.getLastName());
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+    }
+
+    //D
+    @Override
+    public void deletePerson(int id) {
         em = emf.createEntityManager();
         Person person = em.find(Person.class, id);
         try {
@@ -46,38 +91,6 @@ public class PersonFacadeImpl implements PersonFacadeInterface {
         } finally {
             em.close();
         }
-
-        return person;
-    }
-
-    @Override
-    public Person updatePerson(Person person) {
-        em = emf.createEntityManager();
-        Person p = em.find(Person.class, person.getId());
-        try {
-            em.getTransaction().begin();
-            p = person;
-            em.getTransaction().commit();
-        } finally {
-            em.close();
-        }
-        return p;
-
-    }
-
-    @Override
-    public Person getPerson(int id) {
-           em = emf.createEntityManager();
-            try{
-            em.getTransaction().begin();
-            Query query = em.createQuery("SELECT p FROM Person p WHERE p.id = :id");
-            query.setParameter("id", id);
-            em.getTransaction().commit();
-            Person person = (Person) query.getSingleResult();
-            return person;
-            } finally {
-                em.close();
-            }
     }
 
     @Override
@@ -93,4 +106,17 @@ public class PersonFacadeImpl implements PersonFacadeInterface {
         }
     }
 
+    /*@Override
+    public List<Person> getPersonsViaZipcode(int zip) {
+        em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            Query q = em.createQuery("Select c from InfoEntity c WHERE c.zip = :zip");
+            q.setParameter("zip", zip);
+            em.getTransaction().commit();
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    } */
 }

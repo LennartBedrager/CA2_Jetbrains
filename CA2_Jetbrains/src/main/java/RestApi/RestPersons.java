@@ -13,6 +13,7 @@ import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -32,7 +33,6 @@ import javax.ws.rs.core.Response;
 @Path("persons")
 public class RestPersons {
 
- 
     PersonFacadeImpl pfi = new PersonFacadeImpl();
     Gson gson = new Gson();
     @Context
@@ -43,26 +43,23 @@ public class RestPersons {
      */
     public RestPersons() {
     }
-
-    //Returns all persons
-    @Path("/complete")
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getAllPersons() {
-        List<Person> pl = pfi.getAllPersons();
-        if (pl == null) {
-            throw new WebApplicationException(Response.Status.NOT_FOUND);
-        }
-        return gson.toJson(pl);
+    
+    //C
+    @Path("/complete/create")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void createPerson(String person){
+        Person newPerson = gson.fromJson(person, Person.class);
+        pfi.createPerson(newPerson);
     }
+    
 
-    //Return person with ID
-    @Path("/complete/{id}")
+    //R
+    @Path("/complete/id={id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getPersonById(@PathParam("id") int id) {
-        System.out.println("id: "+id);
-         Person p = pfi.getPerson(id);
+        Person p = pfi.getPerson(id);
 
         if (p == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
@@ -70,7 +67,53 @@ public class RestPersons {
         return gson.toJson(p);
     }
 
+    //U
+    @Path("/complete/id={id}")
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void updateUser(String person, @PathParam("id") int id) {
+        Person newPerson = gson.fromJson(person, Person.class);
+        if (newPerson == null) {
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
+        }
+        pfi.updatePerson(newPerson);
+    }
+    
+    //D
+    @Path("/complete/id={id}")
+    @DELETE
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void deletePerson(@PathParam("id") int id) {
+        pfi.deletePerson(id);
+    }
+
+    //Return all persons
+    @Path("/complete")
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAllPersons() {
+        List<Person> persons = pfi.getAllPersons();
+        if (persons == null) {
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
+        }
+        return gson.toJson(persons);
+    }
+
+    //Return person by zipcode
+    /*@Path("/complete/zip={zip}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getPersonByZipCode(@PathParam("zip") int zip) {
+        List<Person> persons = pfi.getPersonsViaZipcode(zip);
+
+        if (persons == null) {
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
+        }
+        return gson.toJson(persons);
+    }
+     */
+
+ /*@GET
     @Path("contactinfo")
     @Produces(MediaType.APPLICATION_JSON)
     public String getContactAll() {
@@ -92,9 +135,9 @@ public class RestPersons {
             personsContact.add(p);
         }
         return gson.toJson(personsContact);
-    }
+    } */
 
-    @GET
+ /* @GET
     @Path("contactinfo/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getContactFromId(@PathParam("id") int id) {
@@ -110,19 +153,5 @@ public class RestPersons {
         p.setPhone(op.getPhone());
         p.setAddress(op.getAddress());
         return gson.toJson(p);
-    }
-
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public String postJson(String content) {
-        Person p = gson.fromJson(content, Person.class);
-        if (p == null) {
-            throw new WebApplicationException(Response.Status.NOT_FOUND);
-        }
-        pfi.createPerson(p);
-        return gson.toJson(p);
-    }
-
-   
+    } */
 }

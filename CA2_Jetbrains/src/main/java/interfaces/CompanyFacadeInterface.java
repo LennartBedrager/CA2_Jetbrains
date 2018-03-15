@@ -14,14 +14,13 @@ import java.util.List;
  */
 public interface CompanyFacadeInterface {
 
-    public Company createCompany(Company company);
+    public void createCompany(Company company);
 
-    public Company deleteCompany(long id);
+    public Company getCompany(int id);
 
-    public Company updateCompany(Company company);
+    public void updateCompany(Company company);
+
+    public void deleteCompany(int id);
 
     public List<Company> getAllCompanies();
-
-    public Company getCompany(long id);
-
 }

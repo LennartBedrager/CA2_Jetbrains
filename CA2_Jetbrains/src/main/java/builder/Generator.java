@@ -211,6 +211,7 @@ public class Generator {
         try {
             em.getTransaction().begin();
             Query query = em.createQuery("SELECT p FROM CityInfo p");
+            em.getTransaction().commit();
             List<CityInfo> listOfInfos = query.getResultList();
             return listOfInfos;
         } finally {
