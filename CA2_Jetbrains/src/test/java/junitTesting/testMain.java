@@ -5,6 +5,8 @@
  */
 package junitTesting;
 
+import RestApi.RestPersons;
+import interfaces.PersonFacadeInterface;
 import javax.persistence.Persistence;
 
 /**
@@ -18,15 +20,10 @@ public class testMain {
      */
     public static void main(String[] args) {
 
-        PersonGenerator g = new PersonGenerator();
-
-        StringBuilder builder = new StringBuilder();
-        for (String value : g.generate(30, 0)) {
-            builder.append(value);
-        }
-        String text = builder.toString();
-        System.out.println(text);
-
+       RestPersons rp = new RestPersons();
+       
+        System.out.println(rp.getAllPersons());
+        
     }
 
 }

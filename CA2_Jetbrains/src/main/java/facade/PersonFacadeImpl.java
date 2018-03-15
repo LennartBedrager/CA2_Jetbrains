@@ -66,10 +66,12 @@ public class PersonFacadeImpl implements PersonFacadeInterface {
 
     @Override
     public Person getPerson(long id) {
-        em = emf.createEntityManager();
-        Person p = em.find(Person.class, id);
-        em.close();
-        return p;
+        em.getTransaction().begin();
+            Query query = em.createQuery("SELECT p FROM Person p WHERE p.id = :id");
+            query.setParameter("id", id);
+            em.getTransaction().commit();
+            Person person = (Person) query.getSingleResult();
+            return person;
     }
 
     @Override
