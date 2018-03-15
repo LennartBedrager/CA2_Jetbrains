@@ -205,7 +205,7 @@ public class Generator {
         return addresses;
     }
 
-    private static List<CityInfo> getAllCityInfos() {
+    public static List<CityInfo> getAllCityInfos() {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("jetbrainsDatabase");
         EntityManager em = emf.createEntityManager();
         try {

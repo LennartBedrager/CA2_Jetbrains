@@ -9,8 +9,85 @@ and open the template in the editor.
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+        <!-- CDN Polyfills which should allow you to use fetch (and promises) from IE and older browsers -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.1.1/es6-promise.auto.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
+        
+        <style>
+            body {
+                margin: 0;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            .topnav {
+                overflow: hidden;
+                background-color: #333;
+            }
+
+            .topnav a {
+                float: left;
+                color: #f2f2f2;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+                font-size: 17px;
+            }
+
+            .topnav a:hover {
+                background-color: #ddd;
+                color: black;
+            }
+
+            .topnav a.active {
+                background-color: #4CAF50;
+                color: white;
+            }
+        </style>
     </head>
+
+
     <body>
-        <div>TODO write content</div>
+        
+        <div class="topnav">
+            <a href="index.html">Home</a>
+            <a class="active" href="person.html">People</a>
+            <a href="#contact">Contact</a>
+            <a href="#about">About</a>
+        </div>
+        
+       
+        <div style="padding-left:16px" class="container">
+        <H2>Data Generator</h2>
+        <div class="form-inline">
+
+
+            <button class="btn btn-default" id="btnsend"> Get All </button>
+            <button class="btn btn-default" id="btnOnesend"> Get One </button>
+            <input type="number" id="field1" value="51">
+            
+
+            <br/>
+            <div class="row">
+                <div class="col-md-6">
+
+                    <table id="tbl" class="table">
+                        <thead>
+                        <th>First Name</th><th>Surname</th><th>id</th>
+                        </thead>
+                        <!-- >TODO: Dynamically create the rows with data fetched from the API, and insert into the table here -->
+                        <tbody id="tblbody"></tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        </div>
     </body>
+
+    <script src="personjs.js"></script>
+
 </html>

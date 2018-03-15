@@ -6,6 +6,7 @@
 package builder;
 
 import RestApi.RestPersons;
+import entity.CityInfo;
 import entity.Person;
 import facade.PersonFacadeImpl;
 import java.util.List;
@@ -17,12 +18,16 @@ import java.util.List;
 public class Tester {
     public static void main(String[] args) {
     
-        RestPersons rp = new RestPersons();
-        PersonFacadeImpl pfi = new PersonFacadeImpl();
+        Generator g = new Generator();
+         List<CityInfo> listOfInfo = g.getAllCityInfos();
+        System.out.println(listOfInfo);
         
-        System.out.println(rp.getAllPersons());
-        Person p = pfi.getPerson(51);
-        System.out.println(p.getFirstName());
+//        RestPersons rp = new RestPersons();
+//        PersonFacadeImpl pfi = new PersonFacadeImpl();
+//        
+//        System.out.println(rp.getAllPersons());
+//        Person p = pfi.getPerson(51);
+//        System.out.println(p.getFirstName());
         
         //System.out.println(rp.getPersonById(51));
     }
