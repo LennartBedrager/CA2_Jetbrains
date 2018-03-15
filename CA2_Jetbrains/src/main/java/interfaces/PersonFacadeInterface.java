@@ -8,17 +8,18 @@ package interfaces;
 import entity.Person;
 import java.util.List;
 
-
 public interface PersonFacadeInterface {
 
-    public Person createPerson(Person person);
-
-    public Person deletePerson(int id);
-
-    public Person updatePerson(Person person);
+    public void createPerson(Person person);
 
     public Person getPerson(int id);
 
+    public void updatePerson(Person person);
+
+    public void deletePerson(int id);
+
     public List<Person> getAllPersons();
+
+    //public List<Person> getPersonsViaZipcode(int zip);
 
 }

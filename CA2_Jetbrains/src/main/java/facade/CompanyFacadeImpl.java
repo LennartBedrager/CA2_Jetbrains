@@ -12,7 +12,7 @@ import javax.persistence.Query;
 /**
  *
  * Facade for persisting entities of the Company class
- * 
+ *
  * @author Kasper RB
  */
 public class CompanyFacadeImpl implements CompanyFacadeInterface {
@@ -20,75 +20,82 @@ public class CompanyFacadeImpl implements CompanyFacadeInterface {
     private static EntityManagerFactory emf;
     private static EntityManager em;
 
- 
     public CompanyFacadeImpl() {
         emf = Persistence.createEntityManagerFactory("jetbrainsDatabase");
     }
 
+    //C
     @Override
-    public Company createCompany(Company company) {
+    public void createCompany(Company company) {
         em = emf.createEntityManager();
-
         try {
             em.getTransaction().begin();
             em.persist(company);
             em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+    }
+
+    //R
+    @Override
+    public Company getCompany(int id) {
+        em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            Query q = em.createQuery("SELECT c FROM Company c WHERE c.id = :id");
+            q.setParameter("id", id);
+            em.getTransaction().commit();
+            Company company = (Company) q.getSingleResult();
             return company;
         } finally {
             em.close();
         }
     }
 
+    //U
     @Override
-    public Company deleteCompany(long id) {
-        em = emf.createEntityManager();
-        Company c = em.find(Company.class, id);
-        try {
-            em.getTransaction().begin();
-            em.remove(c);
-            em.getTransaction().commit();
-        } finally {
-            em.close();
-        }
-        return c;
-    }
-
-    @Override
-    public Company updateCompany(Company company) {
-        em = emf.createEntityManager();
+    public void updateCompany(Company company) {
+        EntityManager em = emf.createEntityManager();
         Company c = em.find(Company.class, company.getId());
         try {
             em.getTransaction().begin();
-            c = company;
-            em.persist(c);
+            c.setName(company.getName());
+            c.setDescription(company.getDescription());
+            c.setCvr(company.getCvr());
+            c.setNumEmployees(company.getNumEmployees());
+            c.setMarketValue(company.getMarketValue());
             em.getTransaction().commit();
         } finally {
             em.close();
         }
-        return c;
+    }
+
+    //D
+    @Override
+    public void deleteCompany(int id) {
+        em = emf.createEntityManager();
+        Company company = em.find(Company.class, id);
+        try {
+            em.getTransaction().begin();
+            em.remove(company);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
     }
 
     @Override
     public List<Company> getAllCompanies() {
         em = emf.createEntityManager();
-        List<Company> companies = new ArrayList();
         try {
             em.getTransaction().begin();
             Query q = em.createQuery("Select c from Company c");
-            companies = q.getResultList();
-
+            em.getTransaction().commit();
+            return q.getResultList();
         } finally {
             em.close();
         }
-        return companies;
-    }
-
-    @Override
-    public Company getCompany(long id) {
-        em = emf.createEntityManager();
-        Company c = em.find(Company.class, id);
-        em.close();
-        return c;
     }
 
 }

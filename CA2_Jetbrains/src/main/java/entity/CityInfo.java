@@ -15,18 +15,18 @@ public class CityInfo implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long zip;
+    private int zip;
     private String city;
 
     public CityInfo() {
     }
 
-    public CityInfo(long zip, String city) {
+    public CityInfo(int zip, String city) {
         this.zip = zip;
         this.city = city;
     }
     
-    public long getZip() {
+    public int getZip() {
         return zip;
     }
 
