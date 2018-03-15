@@ -8,19 +8,16 @@ package interfaces;
 import entity.Person;
 import java.util.List;
 
-/**
- *
- * @author Anton
- */
+
 public interface PersonFacadeInterface {
 
     public Person createPerson(Person person);
 
-    public Person deletePerson(long id);
+    public Person deletePerson(int id);
 
     public Person updatePerson(Person person);
 
-    public Person getPerson(long id);
+    public Person getPerson(int id);
 
     public List<Person> getAllPersons();
 

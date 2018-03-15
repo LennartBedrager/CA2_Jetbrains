@@ -44,7 +44,7 @@ public class PhoneFacadeImpl implements PhoneFacadeInterface {
     }
 
     @Override
-    public Phone getPhone(long id) {
+    public Phone getPhone(int id) {
         em = emf.createEntityManager();
         Phone p = em.find(Phone.class, id);
         em.close();

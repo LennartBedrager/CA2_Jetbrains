@@ -6,8 +6,8 @@
 package builder;
 
 import RestApi.RestPersons;
-import RestFacade.RestPersonFacade;
 import entity.Person;
+import facade.PersonFacadeImpl;
 import java.util.List;
 
 /**
@@ -16,15 +16,14 @@ import java.util.List;
  */
 public class Tester {
     public static void main(String[] args) {
-        
+    
         RestPersons rp = new RestPersons();
+        PersonFacadeImpl pfi = new PersonFacadeImpl();
         
-        String persons = rp.getAllPersons();
-//        List<Person> persons = RestPersonFacade.getAllPets();
-        System.out.println(persons);
+        System.out.println(rp.getAllPersons());
+        Person p = pfi.getPerson(51);
+        System.out.println(p.getFirstName());
         
-        Person person = RestPersonFacade.getPersonById(3);
-        System.out.println(person.getFirstName());
-        
+        //System.out.println(rp.getPersonById(51));
     }
 }

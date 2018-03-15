@@ -61,6 +61,7 @@ public class RestPersons {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getPersonById(@PathParam("id") int id) {
+        System.out.println("id: "+id);
          Person p = pfi.getPerson(id);
 
         if (p == null) {

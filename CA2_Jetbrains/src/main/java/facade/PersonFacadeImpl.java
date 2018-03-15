@@ -17,7 +17,8 @@ import javax.persistence.Query;
 public class PersonFacadeImpl implements PersonFacadeInterface {
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("jetbrainsDatabase");
-    EntityManager em;
+    
+    EntityManager  em;
 
 
     @Override
@@ -35,7 +36,7 @@ public class PersonFacadeImpl implements PersonFacadeInterface {
     }
 
     @Override
-    public Person deletePerson(long id) {
+    public Person deletePerson(int id) {
         em = emf.createEntityManager();
         Person person = em.find(Person.class, id);
         try {
@@ -51,7 +52,7 @@ public class PersonFacadeImpl implements PersonFacadeInterface {
 
     @Override
     public Person updatePerson(Person person) {
-        EntityManager em = emf.createEntityManager();
+        em = emf.createEntityManager();
         Person p = em.find(Person.class, person.getId());
         try {
             em.getTransaction().begin();
@@ -65,13 +66,18 @@ public class PersonFacadeImpl implements PersonFacadeInterface {
     }
 
     @Override
-    public Person getPerson(long id) {
-        em.getTransaction().begin();
+    public Person getPerson(int id) {
+           em = emf.createEntityManager();
+            try{
+            em.getTransaction().begin();
             Query query = em.createQuery("SELECT p FROM Person p WHERE p.id = :id");
             query.setParameter("id", id);
             em.getTransaction().commit();
             Person person = (Person) query.getSingleResult();
             return person;
+            } finally {
+                em.close();
+            }
     }
 
     @Override
