@@ -1,9 +1,10 @@
-document.getElementById("btnsend").addEventListener("click", submitFunction)
-document.getElementById("btnOnesend").addEventListener("click", submitOneFunction)
+document.getElementById("btnsend").addEventListener("click", submitFunction);
+document.getElementById("btnOnesend").addEventListener("click", submitOneFunction);
+
 
 function submitFunction() {
 
-    fetch("http://localhost:8084/CA2_Jetbrains/api/persons/complete")
+    fetch("http://localhost:8084/CA2_Jetbrains/api/person/complete")
             .then(function (response) {
                 if (response.ok) {
                     return response.json();
@@ -25,7 +26,7 @@ function submitOneFunction() {
 
     var id = document.getElementById("field1").value;
     console.log(id);
-    fetch("http://localhost:8084/CA2_Jetbrains/api/persons/complete/"+ id)
+    fetch("http://localhost:8084/CA2_Jetbrains/api/person/complete/"+ id)
             .then(function (response) {
                 if (response.ok) {
                     return response.json();
@@ -38,3 +39,4 @@ function submitOneFunction() {
             
             
 }
+

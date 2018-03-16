@@ -30,7 +30,7 @@ import javax.ws.rs.core.Response;
  *
  * @author Oliver
  */
-@Path("persons")
+@Path("person")
 public class RestPersons {
 
     PersonFacadeImpl pfi = new PersonFacadeImpl();
@@ -45,17 +45,20 @@ public class RestPersons {
     }
     
     //C
-    @Path("/complete/create")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public void createPerson(String person){
         Person newPerson = gson.fromJson(person, Person.class);
+        if (newPerson == null) {
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
+        }
         pfi.createPerson(newPerson);
     }
     
 
     //R
-    @Path("/complete/id={id}")
+    @Path("/complete/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getPersonById(@PathParam("id") int id) {
@@ -68,7 +71,7 @@ public class RestPersons {
     }
 
     //U
-    @Path("/complete/id={id}")
+    @Path("/complete/{id}")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void updateUser(String person, @PathParam("id") int id) {
@@ -80,7 +83,7 @@ public class RestPersons {
     }
     
     //D
-    @Path("/complete/id={id}")
+    @Path("/complete/{id}")
     @DELETE
     @Consumes(MediaType.APPLICATION_JSON)
     public void deletePerson(@PathParam("id") int id) {
