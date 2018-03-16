@@ -28,6 +28,8 @@ public class Generator {
     EntityManager em = emf.createEntityManager();
 
     public void putGeneratedPeopleInDatabase(int amount) {
+        //Random generators
+        
         //Person
         ArrayList<String> firstNames = Generator.firstNames();
         ArrayList<String> lastNames = Generator.lastNames();
@@ -44,18 +46,40 @@ public class Generator {
 
         for (int i = 0; i < amount; i++) {
             em.getTransaction().begin();
-            Person person = new Person(firstNames.get((int) (Math.random() * firstNames.size())), lastNames.get((int) (Math.random() * lastNames.size())));
+            
+            //Containers of Person object
+            String firstName = firstNames.get((int) (Math.random() * firstNames.size()));
+            String lastName = lastNames.get((int) (Math.random() * lastNames.size()));
+            
+            Person person = new Person(firstName, lastName);
+            
+            //1 or 2 phonenumbers for each Person object
             for (int j = 0; j <= (int) (Math.random() * 2); j++) {
                 person.addPhoneNumber(new Phone(Generator.randomizePhones(), "APhoneNumber"));
             }
-            person.addHobby(listOfHobbies.get((int) (Math.random() * listOfHobbies.size())));
-            person.setAddress(new Address(streetNames.get((int) (Math.random() * streetNames.size())), addressInfo.get((int) (Math.random() * addressInfo.size())), listOfInfo.get((int) (Math.random() * listOfInfo.size()))));
+            
+            //Adding a hobby
+                person.addHobby(listOfHobbies.get((int) (Math.random() * listOfHobbies.size())));
+            
+            //Containers of address object
+            String streetName = streetNames.get((int) (Math.random() * streetNames.size()));
+            String additionalInfo = addressInfo.get((int) (Math.random() * addressInfo.size()));
+            
+            CityInfo cityInfo = listOfInfo.get((int) (Math.random() * listOfInfo.size()));
+            Address address = new Address(streetName, additionalInfo, cityInfo);
+            person.setAddress(address);
+            
+            
+            
             em.persist(person);
             em.getTransaction().commit();
         }
     }
 
     public void putGeneratedCompaniesInDatabase(int amount) {
+        //Random generators
+        
+        
         //Company
         ArrayList<String> companyNames = Generator.companyNames();
         ArrayList<String> companyDescs = Generator.companyDescriptions();
@@ -70,11 +94,28 @@ public class Generator {
         
         for (int i = 0; i < amount; i++) {
             em.getTransaction().begin();
-            Company company = new Company(companyNames.get((int) (Math.random() * companyNames.size())), companyDescs.get((int) (Math.random() * companyDescs.size())), Generator.companyCvrs(), (int) (Math.random() * 999), marketValues.get((int) (Math.random() * marketValues.size())));
+            
+            //Containers of Company object
+            String companyName = companyNames.get((int) (Math.random() * companyNames.size()));
+            String companyDesc = companyDescs.get((int) (Math.random() * companyDescs.size()));
+            String companyCvr = Generator.companyCvrs();
+            int numberOfEmployees = (int) (Math.random() * 999);
+            String companyMarketValues = marketValues.get((int) (Math.random() * marketValues.size()));
+            
+            Company company = new Company(companyName, companyDesc, companyCvr, numberOfEmployees, companyMarketValues);
+            
+            //1 or 2 phonenumbers for each Company object
             for (int j = 0; j <= (int) (Math.random() * 2); j++) {
                 company.addPhoneNumber(new Phone(Generator.randomizePhones(), "APhoneNumber"));
             }
-            company.setAddress(new Address(streetNames.get((int) (Math.random() * streetNames.size())), addressInfo.get((int) (Math.random() * addressInfo.size())), listOfInfo.get((int) (Math.random() * listOfInfo.size()))));
+            
+            //Containers of address object
+            String streetName = streetNames.get((int) (Math.random() * streetNames.size()));
+            String addressInformation = addressInfo.get((int) (Math.random() * addressInfo.size()));
+            CityInfo cityInfo = listOfInfo.get((int) (Math.random() * listOfInfo.size()));
+            
+            company.setAddress(new Address(streetName, addressInformation, cityInfo));
+            
             em.persist(company);
             em.getTransaction().commit();
         }

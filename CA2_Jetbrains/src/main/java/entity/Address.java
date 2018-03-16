@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -18,17 +17,16 @@ public class Address implements Serializable {
     private Long id;
     private String street;
     private String additionalInfo;
-    // @JoinColumn(name="ADDRESS_ZIPCODES")
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     private CityInfo city;
 
     public Address() {
     }
 
-    public Address(String street, String additionalInfo, CityInfo city) {
+    public Address(String street, String additionalInfo, CityInfo cityinfo) {
         this.street = street;
         this.additionalInfo = additionalInfo;
-        this.city = city;
+        this.city = cityinfo;
     }
     
     public Long getId() {

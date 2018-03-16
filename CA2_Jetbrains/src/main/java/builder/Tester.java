@@ -19,8 +19,9 @@ public class Tester {
     public static void main(String[] args) {
     
         Generator g = new Generator();
-         List<CityInfo> listOfInfo = g.getAllCityInfos();
-        System.out.println(listOfInfo);
+        List<CityInfo> listOfInfo = g.getAllCityInfos();
+        CityInfo test = new CityInfo(listOfInfo.get((int) (Math.random() * listOfInfo.size())).getZip(), listOfInfo.get((int) (Math.random() * listOfInfo.size())).getCity());
+        System.out.println(test);
         
 //        RestPersons rp = new RestPersons();
 //        PersonFacadeImpl pfi = new PersonFacadeImpl();
