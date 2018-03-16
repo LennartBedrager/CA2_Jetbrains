@@ -1,10 +1,10 @@
-document.getElementById("btnsend").addEventListener("click", submitFunction);
-document.getElementById("btnOnesend").addEventListener("click", submitOneFunction);
+document.getElementById("btnsend").addEventListener("click", getAllPersons);
+document.getElementById("btnOnesend").addEventListener("click", getPerson);
 
 
-function submitFunction() {
 
-    fetch("http://localhost:8084/CA2_Jetbrains/api/person/complete")
+function getAllPersons(){
+  fetch("http://localhost:8084/CA2_Jetbrains/api/person/complete")
             .then(function (response) {
                 if (response.ok) {
                     return response.json();
@@ -20,9 +20,11 @@ function submitFunction() {
 
             }).catch(function (error) {
         document.getElementById("tblbody").innerText = error;
-    })
+    })  
 }
-function submitOneFunction() {
+
+
+function getPerson() {
 
     var id = document.getElementById("field1").value;
     console.log(id);

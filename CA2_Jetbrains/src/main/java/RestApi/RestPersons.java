@@ -48,12 +48,14 @@ public class RestPersons {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public void createPerson(String person){
+    public String createPerson(String person){
         Person newPerson = gson.fromJson(person, Person.class);
         if (newPerson == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
+        System.out.println(newPerson.getFirstName());
         pfi.createPerson(newPerson);
+        return gson.toJson(newPerson);
     }
     
 

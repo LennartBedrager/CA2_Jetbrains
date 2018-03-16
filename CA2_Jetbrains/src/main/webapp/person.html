@@ -54,8 +54,10 @@ and open the template in the editor.
         
         <div class="topnav">
             <a href="index.html">Home</a>
-            <a class="active" href="person.html">People</a>
+            <a class="active" href="person.html">Person</a>
             <a href="createPerson.html">New Person</a>
+            <a href="company.html">Company</a>
+            <a href="createCompany.html">New Company</a>
             <a href="#about">About</a>
         </div>
         
@@ -64,8 +66,8 @@ and open the template in the editor.
         <H2>Data Generator</h2>
         <div class="form-inline">
 
-
             <button class="btn btn-default" id="btnsend"> Get All </button>
+            ... or  
             <button class="btn btn-default" id="btnOnesend"> Get One </button>
             <input type="number" id="field1" value="51">
             
@@ -76,11 +78,13 @@ and open the template in the editor.
 
                     <table id="tbl" class="table">
                         <thead>
-                        <th>First Name</th><th>Surname</th><th>id</th>
+                        <th>First name</th><th>Last name</th><th>id</th>
                         </thead>
                         <!-- >TODO: Dynamically create the rows with data fetched from the API, and insert into the table here -->
                         <tbody id="tblbody"></tbody>
                     </table>
+                    
+                    
                 </div>
 
             </div>
@@ -88,6 +92,6 @@ and open the template in the editor.
         </div>
     </body>
 
-    <script src="personjs.js"></script>
+    <script src="person.js"></script>
 
 </html>

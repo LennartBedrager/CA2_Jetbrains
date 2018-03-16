@@ -9,14 +9,14 @@ and open the template in the editor.
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
+        
+        
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
         <!-- CDN Polyfills which should allow you to use fetch (and promises) from IE and older browsers -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.1.1/es6-promise.auto.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
-
+        
         <style>
             body {
                 margin: 0;
@@ -51,32 +51,47 @@ and open the template in the editor.
 
 
     <body>
-
+        
         <div class="topnav">
             <a href="index.html">Home</a>
             <a href="person.html">Person</a>
-            <a  class="active" href="createPerson.html">New Person</a>
-            <a href="company.html">Company</a>
+            <a href="createPerson.html">New Person</a>
+            <a class="active" href="company.html">Company</a>
             <a href="createCompany.html">New Company</a>
             <a href="#about">About</a>
         </div>
-
-
+        
+       
         <div style="padding-left:16px" class="container">
-            <H2>Data Generator</h2>
-            <div class="form-inline">
+        <H2>Data Generator</h2>
+        <div class="form-inline">
 
-                <div id = "personPost">
-                    First name: <input type="text" id="firstName" value=""><br>
-                    Last name: <input type="text" id="lastName" value=""><br>
-                    <button class="btn btn-default" id ="createPerson">Submit</button>
+            <button class="btn btn-default" id="btnsend"> Get All </button>
+            ... or  
+            <button class="btn btn-default" id="btnOnesend"> Get One </button>
+            <input type="number" id="field1" value="51">
+            
+
+            <br/>
+            <div class="row">
+                <div class="col-md-6">
+
+                    <table id="tbl" class="table">
+                        <thead>
+                        <th>Name</th><th>CVR</th><th>Description</th><th>Market value</th><th>Employees</th><th>id</th>
+                        </thead>
+                        <!-- >TODO: Dynamically create the rows with data fetched from the API, and insert into the table here -->
+                        <tbody id="tblbody"></tbody>
+                    </table>
+                    
+                    
                 </div>
-
 
             </div>
         </div>
+        </div>
     </body>
 
-    <script src="addPerson.js"></script>
+    <script src="company.js"></script>
 
 </html>

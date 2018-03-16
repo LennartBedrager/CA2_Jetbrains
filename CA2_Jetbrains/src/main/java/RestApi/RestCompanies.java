@@ -28,7 +28,7 @@ import javax.ws.rs.core.Response;
  *
  * @author PC
  */
-@Path("companies")
+@Path("company")
 public class RestCompanies {
 
     CompanyFacadeImpl pfi = new CompanyFacadeImpl();
@@ -43,7 +43,6 @@ public class RestCompanies {
     }
 
     //C
-    @Path("/complete/create")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public void createPerson(String company) {
@@ -52,7 +51,7 @@ public class RestCompanies {
     }
 
     //R
-    @Path("/complete/id={id}")
+    @Path("/complete/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getPersonById(@PathParam("id") int id) {
@@ -65,7 +64,7 @@ public class RestCompanies {
     }
 
     //U
-    @Path("/complete/id={id}")
+    @Path("/complete/{id}")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void updateUser(String company, @PathParam("id") int id) {
@@ -77,7 +76,7 @@ public class RestCompanies {
     }
 
     //D
-    @Path("/complete/id={id}")
+    @Path("/complete/{id}")
     @DELETE
     @Consumes(MediaType.APPLICATION_JSON)
     public void deletePerson(@PathParam("id") int id) {
