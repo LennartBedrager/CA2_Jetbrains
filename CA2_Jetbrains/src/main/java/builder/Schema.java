@@ -19,8 +19,7 @@ public class Schema {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
-        Persistence.generateSchema("jetbrainsDatabase", null);
+        //Persistence.generateSchema("jetbrainsDatabase", null);
         Generator pg2 = new Generator();
         pg2.putGeneratedPeopleInDatabase(30);
         pg2.putGeneratedCompaniesInDatabase(30);
