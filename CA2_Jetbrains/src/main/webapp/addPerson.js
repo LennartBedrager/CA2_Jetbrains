@@ -7,7 +7,7 @@ function createPerson() {
 
     console.log("firstname: "+firstName+" lastname: "+lastName);
 
-    var apiLink = "http://localhost:8084/CA2_Jetbrains/api/person";
+    var apiLink = "http://hawkdon.dk/CA2/api/person";
 
     var newPerson = {
         firstName: firstName,

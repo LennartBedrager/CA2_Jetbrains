@@ -4,7 +4,7 @@ document.getElementById("btnOnesend").addEventListener("click", getCompany);
 //<th>Name</th><th>CVR</th><th>Description</th><th>Market value</th><th>Employees</th><th>id</th>
 
 function getAllCompanies(){
-  fetch("http://localhost:8084/CA2_Jetbrains/api/company/complete")
+  fetch("http://hawkdon.dk/CA2/api/company/complete")
             .then(function (response) {
                 if (response.ok) {
                     return response.json();
@@ -30,7 +30,7 @@ function getCompany() {
 
     var id = document.getElementById("field1").value;
     console.log(id);
-    fetch("http://localhost:8084/CA2_Jetbrains/api/company/complete/"+ id)
+    fetch("http://hawkdon.dk/CA2/api/company/complete/"+ id)
             .then(function (response) {
                 if (response.ok) {
                     return response.json();
