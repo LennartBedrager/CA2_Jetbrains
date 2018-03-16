@@ -7,7 +7,7 @@ function createPerson() {
 
     console.log("firstname: "+firstName+" lastname: "+lastName);
 
-    var apiLink = "http://hawkdon.dk/CA2/api/person";
+    var apiLink = "https://hawkdon.dk/CA2/api/person";
 
     var newPerson = {
         firstName: firstName,

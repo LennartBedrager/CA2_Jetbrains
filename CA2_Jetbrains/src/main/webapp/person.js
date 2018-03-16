@@ -4,7 +4,7 @@ document.getElementById("btnOnesend").addEventListener("click", getPerson);
 
 
 function getAllPersons(){
-  fetch("http://hawkdon.dk/CA2/api/person/complete")
+  fetch("https://hawkdon.dk/CA2/api/person/complete")
             .then(function (response) {
                 if (response.ok) {
                     return response.json();
@@ -28,7 +28,7 @@ function getPerson() {
 
     var id = document.getElementById("field1").value;
     console.log(id);
-    fetch("http://hawkdon.dk/CA2/api/person/complete/"+ id)
+    fetch("https://hawkdon.dk/CA2/api/person/complete/"+ id)
             .then(function (response) {
                 if (response.ok) {
                     return response.json();
