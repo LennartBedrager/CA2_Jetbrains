@@ -58,7 +58,7 @@ and open the template in the editor.
             <a href="createPerson.html">New Person</a>
             <a href="company.html">Company</a>
             <a href="createCompany.html">New Company</a>
-            <a href="#about">About</a>
+            <a href="about.html">About</a>
         </div>
         
        
@@ -68,8 +68,20 @@ and open the template in the editor.
 
             <button class="btn btn-default" id="btnsend"> Get All </button>
             ... or  
-            <button class="btn btn-default" id="btnOnesend"> Get One </button>
+            
+            <div class="form-group">
+                <label for="data"> Data: </label>
+                <select id="data"  class="form-control">
+                    <option>id</option>
+                    <option>Phone</option>
+                    <option>First name</option>
+                    <option>Last name</option>
+                    <option>Hobbie</option>
+                </select>
+            </div>
+            
             <input type="number" id="field1" value="51">
+            <button class="btn btn-default" id="btnOnesend"> Get One </button>
             
 
             <br/>
