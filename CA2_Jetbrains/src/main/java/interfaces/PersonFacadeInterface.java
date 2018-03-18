@@ -14,12 +14,14 @@ public interface PersonFacadeInterface {
 
     public Person getPerson(int id);
 
-    public void updatePerson(Person person);
+    public Person updatePerson(Person person, int id);
 
-    public void deletePerson(int id);
+    public Person deletePerson(int id);
 
     public List<Person> getAllPersons();
 
-    //public List<Person> getPersonsViaZipcode(int zip);
+    public List<Person> getPersonsViaZipcode(int zip);
+    
+    public List<Person> getPersonsViaFirstName(String fname);
 
 }

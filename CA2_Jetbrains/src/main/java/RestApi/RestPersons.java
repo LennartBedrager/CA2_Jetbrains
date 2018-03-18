@@ -43,21 +43,18 @@ public class RestPersons {
      */
     public RestPersons() {
     }
-    
-    //C
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
+
+    //Return all persons
+    @Path("/complete")
+    @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String createPerson(String person){
-        Person newPerson = gson.fromJson(person, Person.class);
-        if (newPerson == null) {
+    public String getAllPersons() {
+        List<Person> persons = pfi.getAllPersons();
+        if (persons == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
-        System.out.println(newPerson.getFirstName());
-        pfi.createPerson(newPerson);
-        return gson.toJson(newPerson);
+        return gson.toJson(persons);
     }
-    
 
     //R
     @Path("/complete/{id}")
@@ -72,43 +69,10 @@ public class RestPersons {
         return gson.toJson(p);
     }
 
-    //U
-    @Path("/complete/{id}")
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void updateUser(String person, @PathParam("id") int id) {
-        Person newPerson = gson.fromJson(person, Person.class);
-        if (newPerson == null) {
-            throw new WebApplicationException(Response.Status.NOT_FOUND);
-        }
-        pfi.updatePerson(newPerson);
-    }
-    
-    //D
-    @Path("/complete/{id}")
-    @DELETE
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void deletePerson(@PathParam("id") int id) {
-        pfi.deletePerson(id);
-    }
-
-    //Return all persons
-    @Path("/complete")
+    @Path("/complete/zip={zip}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getAllPersons() {
-        List<Person> persons = pfi.getAllPersons();
-        if (persons == null) {
-            throw new WebApplicationException(Response.Status.NOT_FOUND);
-        }
-        return gson.toJson(persons);
-    }
-
-    //Return person by zipcode
-    /*@Path("/complete/zip={zip}")
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getPersonByZipCode(@PathParam("zip") int zip) {
+    public String getPersonByZip(@PathParam("zip") int zip) {
         List<Person> persons = pfi.getPersonsViaZipcode(zip);
 
         if (persons == null) {
@@ -116,7 +80,60 @@ public class RestPersons {
         }
         return gson.toJson(persons);
     }
-     */
+    
+    @Path("/complete/fname={fname}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getPersonsByFirstName(@PathParam("fname") String fname) {
+        List<Person> persons = pfi.getPersonsViaFirstName(fname);
+
+        if (persons == null) {
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
+        }
+        return gson.toJson(persons);
+    }
+
+    
+    
+    
+    //C
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String createPerson(String person) {
+        Person newPerson = gson.fromJson(person, Person.class);
+        if (newPerson == null) {
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
+        }
+        System.out.println(newPerson.getFirstName());
+        pfi.createPerson(newPerson);
+        return gson.toJson(newPerson);
+    }
+
+    //U
+    @Path("/complete/{id}")
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)  
+    @Produces(MediaType.APPLICATION_JSON)
+    public String updateUser(String person, @PathParam("id") int id) {
+        Person newPerson = gson.fromJson(person, Person.class);
+        if (newPerson == null) {
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
+        }
+        Person updatedPerson = pfi.updatePerson(newPerson,id);
+        return gson.toJson(updatedPerson);
+    }
+
+    //D
+    @Path("/complete/{id}")
+    @DELETE
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String deletePerson(@PathParam("id") int id) {
+        Person deletedPerson = pfi.deletePerson(id);
+        return gson.toJson(deletedPerson);
+    }
+
 
  /*@GET
     @Path("contactinfo")

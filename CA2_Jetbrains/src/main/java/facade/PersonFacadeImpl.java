@@ -20,19 +20,19 @@ public class PersonFacadeImpl implements PersonFacadeInterface {
 
     EntityManager em;
 
-    //C
     @Override
-    public void createPerson(Person person) {
+    public List<Person> getAllPersons() {
         em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.persist(person);
+            Query q = em.createQuery("Select p from Person p");
             em.getTransaction().commit();
+            return q.getResultList();
         } finally {
             em.close();
         }
     }
-
+        
     //R
     @Override
     public Person getPerson(int id) {
@@ -47,7 +47,52 @@ public class PersonFacadeImpl implements PersonFacadeInterface {
         } finally {
             em.close();
         }
+    }    
+    
+    @Override
+    public List<Person> getPersonsViaZipcode(int zip) {
+        em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            Query q = em.createQuery("select p from Person p where p.address.city.zip = :zip");
+            q.setParameter("zip", zip);
+            em.getTransaction().commit();
+            System.out.println(q.getResultList().toString());
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
     }
+    
+    @Override
+    public List<Person> getPersonsViaFirstName(String fname) {
+        em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            Query q = em.createQuery("select p from Person p where p.firstName = :fname");
+            q.setParameter("fname", fname);
+            em.getTransaction().commit();
+            System.out.println(q.getResultList().toString());
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+    
+    //C
+    @Override
+    public void createPerson(Person person) {
+        em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(person);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+    }
+
+
 
     //U
     /*@Override
@@ -66,14 +111,15 @@ public class PersonFacadeImpl implements PersonFacadeInterface {
 
     //U
     @Override
-    public void updatePerson(Person person) {
+    public Person updatePerson(Person person, int id) {
         EntityManager em = emf.createEntityManager();
-        Person p = em.find(Person.class, person.getId());
+        Person p = em.find(Person.class, Long.valueOf(id));
         try {
             em.getTransaction().begin();
             p.setFirstName(person.getFirstName());
             p.setLastName(person.getLastName());
             em.getTransaction().commit();
+            return p;
         } finally {
             em.close();
         }
@@ -81,42 +127,18 @@ public class PersonFacadeImpl implements PersonFacadeInterface {
 
     //D
     @Override
-    public void deletePerson(int id) {
+    public Person deletePerson(int id) {
         em = emf.createEntityManager();
-        Person person = em.find(Person.class, id);
+        Person person = em.find(Person.class, Long.valueOf(id));
         try {
             em.getTransaction().begin();
             em.remove(person);
             em.getTransaction().commit();
+            return person;
         } finally {
             em.close();
         }
     }
 
-    @Override
-    public List<Person> getAllPersons() {
-        em = emf.createEntityManager();
-        try {
-            em.getTransaction().begin();
-            Query q = em.createQuery("Select p from Person p");
-            em.getTransaction().commit();
-            return q.getResultList();
-        } finally {
-            em.close();
-        }
-    }
 
-    /*@Override
-    public List<Person> getPersonsViaZipcode(int zip) {
-        em = emf.createEntityManager();
-        try {
-            em.getTransaction().begin();
-            Query q = em.createQuery("Select c from InfoEntity c WHERE c.zip = :zip");
-            q.setParameter("zip", zip);
-            em.getTransaction().commit();
-            return q.getResultList();
-        } finally {
-            em.close();
-        }
-    } */
 }
