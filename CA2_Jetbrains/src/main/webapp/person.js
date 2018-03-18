@@ -39,7 +39,7 @@ function coolFunction() {
 function getAllPersonsWithZip() {
 
     var zip = document.getElementById("field1").value;
-    fetch("http://localhost:8084/CA2_Jetbrains/api/person/complete/zip=" + zip)
+    fetch("https://hawkdon.dk/CA2/api/person/complete/zip=" + zip)
             .then(function (response) {
                 if (response.ok) {
                     return response.json();
@@ -60,7 +60,7 @@ function getAllPersonsWithZip() {
 function getAllPersonsWithFirstName() {
 
     var fname = document.getElementById("field1").value;
-    fetch("http://localhost:8084/CA2_Jetbrains/api/person/complete/fname=" + fname)
+    fetch("https://hawkdon.dk/CA2/api/person/complete/fname=" + fname)
             .then(function (response) {
                 if (response.ok) {
                     return response.json();
@@ -81,7 +81,7 @@ function getAllPersonsWithFirstName() {
 function getAllPersonsWithLastName() {
 
     var lname = document.getElementById("field1").value;
-    fetch("http://localhost:8084/CA2_Jetbrains/api/person/complete/lname=" + lname)
+    fetch("https://hawkdon.dk/CA2/api/person/complete/lname=" + lname)
             .then(function (response) {
                 if (response.ok) {
                     return response.json();
@@ -100,7 +100,7 @@ function getAllPersonsWithLastName() {
 }
 
 function getAllPersons() {
-    fetch("http://localhost:8084/CA2_Jetbrains/api/person/complete")
+    fetch("https://hawkdon.dk/CA2/api/person/complete")
 
             .then(function (response) {
                 if (response.ok) {
@@ -122,7 +122,7 @@ function getAllPersons() {
 function getPersonById() {
 
     var id = document.getElementById("field1").value;
-    fetch("http://localhost:8084/CA2_Jetbrains/api/person/complete/" + id)
+    fetch("https://hawkdon.dk/CA2/api/person/complete/" + id)
             .then(function (response) {
                 if (response.ok) {
                     return response.json();
@@ -150,7 +150,7 @@ function getPersonById() {
 function getPersonByPhone() {
 
     var phone = document.getElementById("field1").value;
-    fetch("http://localhost:8084/CA2_Jetbrains/api/person/complete/phone=" + phone)
+    fetch("https://hawkdon.dk/CA2/api/person/complete/phone=" + phone)
             .then(function (response) {
                 if (response.ok) {
                     return response.json();

@@ -4,7 +4,7 @@ function deletePerson() {
 
     var id = document.getElementById("id").value;
     
-    var apiLink = "http://localhost:8084/CA2_Jetbrains/api/person/complete/" + id;
+    var apiLink = "https://hawkdon.dk/CA2/api/person/complete/" + id;
 
     fetch(apiLink, {
         method: "DELETE"
