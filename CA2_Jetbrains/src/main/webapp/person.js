@@ -142,7 +142,9 @@ function getPersonById() {
                     document.getElementById("tblclass").innerHTML = smallTable,
                             document.getElementById("tblbody").innerHTML = smallInfo(data);
                 }
-            });
+            }).catch(function (error) {
+        document.getElementById("tblbody").innerText = error;
+    });
 
 
 }
@@ -162,7 +164,9 @@ function getPersonByPhone() {
                     document.getElementById("tblclass").innerHTML = smallTable,
                     document.getElementById("tblbody").innerHTML = smallInfo(data);
                 
-            });
+            }).catch(function (error) {
+        document.getElementById("tblbody").innerText = error;
+    });
 
 
 }

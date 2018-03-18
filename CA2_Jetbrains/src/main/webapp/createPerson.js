@@ -27,7 +27,7 @@ function createPerson() {
     }).then(function (res) {
         return res.json();
     }).then(function (data) {
-        alert("Person has been added to database!");
+        alert("Person: "+data.firstName+" "+ data.lastName+ " has been added to the database!");
     });
 
 
