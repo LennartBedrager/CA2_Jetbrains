@@ -65,12 +65,43 @@ public class PersonFacadeImpl implements PersonFacadeInterface {
     }
     
     @Override
+    public Person getPersonByPhone(String phone) {
+        em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            Query q = em.createQuery("SELECT p FROM Person p JOIN p.phone t where t.number = :phone");
+            q.setParameter("phone", phone);
+            em.getTransaction().commit();
+            System.out.println("Result from getPersonViaPhone: " + q.getResultList().toString());
+            Person person = (Person) q.getSingleResult();
+            return person;
+        } finally {
+            em.close();
+        }
+    }
+    
+    @Override
     public List<Person> getPersonsViaFirstName(String fname) {
         em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
             Query q = em.createQuery("select p from Person p where p.firstName = :fname");
             q.setParameter("fname", fname);
+            em.getTransaction().commit();
+            System.out.println(q.getResultList().toString());
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+    
+    @Override
+    public List<Person> getPersonsViaLastName(String lname) {
+        em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            Query q = em.createQuery("select p from Person p where p.lastName = :lname");
+            q.setParameter("lname", lname);
             em.getTransaction().commit();
             System.out.println(q.getResultList().toString());
             return q.getResultList();
@@ -94,20 +125,6 @@ public class PersonFacadeImpl implements PersonFacadeInterface {
 
 
 
-    //U
-    /*@Override
-    public void updatePerson(Person person, int id) {
-        em = emf.createEntityManager();
-        try {
-            em.getTransaction().begin();
-            Query q = em.createQuery("UPDATE Person p SET p.firstName ='" + person.getFirstName() + "', p.lastName ='" + person.getLastName() + " WHERE p.id = :id");
-            q.setParameter("id", id);
-            q.executeUpdate();
-            em.getTransaction().commit();
-        } finally {
-            em.close();
-        }
-    } */
 
     //U
     @Override

@@ -21,7 +21,7 @@ function coolFunction() {
     if (selection.toUpperCase() === "ID") {
         getPersonById();
     } else if (selection.toUpperCase() === "PHONE") {
-        //add stuff
+        getPersonByPhone();
 
     } else if (selection.toUpperCase() === "ZIP") {
         getAllPersonsWithZip();
@@ -30,7 +30,7 @@ function coolFunction() {
         getAllPersonsWithFirstName();
 
     } else if (selection.toUpperCase() === "LAST NAME") {
-        //add stuff 
+        getAllPersonsWithLastName();
 
     }
 }
@@ -78,6 +78,27 @@ function getAllPersonsWithFirstName() {
     })
 }
 
+function getAllPersonsWithLastName() {
+
+    var lname = document.getElementById("field1").value;
+    fetch("http://localhost:8084/CA2_Jetbrains/api/person/complete/lname=" + lname)
+            .then(function (response) {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error(response.statusText)
+                }
+            })
+            .then(function (myJson) {
+                var newArray = myJson.map(smallInfo)
+                document.getElementById("tblclass").innerHTML = smallTable,
+                document.getElementById("tblbody").innerHTML = newArray.join("");
+
+            }).catch(function (error) {
+        document.getElementById("tblbody").innerText = error;
+    })
+}
+
 function getAllPersons() {
     fetch("http://localhost:8084/CA2_Jetbrains/api/person/complete")
 
@@ -119,8 +140,28 @@ function getPersonById() {
                 } else {
                     alert("phone not found");
                     document.getElementById("tblclass").innerHTML = smallTable,
-                            document.getElementById("tblbody").innerHTML = smallInfo();
+                            document.getElementById("tblbody").innerHTML = smallInfo(data);
                 }
+            });
+
+
+}
+
+function getPersonByPhone() {
+
+    var phone = document.getElementById("field1").value;
+    fetch("http://localhost:8084/CA2_Jetbrains/api/person/complete/phone=" + phone)
+            .then(function (response) {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error(response.statusText)
+                }
+            })
+            .then(function (data) {
+                    document.getElementById("tblclass").innerHTML = smallTable,
+                    document.getElementById("tblbody").innerHTML = smallInfo(data);
+                
             });
 
 

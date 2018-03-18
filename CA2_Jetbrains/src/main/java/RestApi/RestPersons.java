@@ -92,6 +92,30 @@ public class RestPersons {
         }
         return gson.toJson(persons);
     }
+    
+    @Path("/complete/lname={lname}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getPersonsByLastName(@PathParam("lname") String lname) {
+        List<Person> persons = pfi.getPersonsViaLastName(lname);
+
+        if (persons == null) {
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
+        }
+        return gson.toJson(persons);
+    }
+    
+    @Path("/complete/phone={phone}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getPersonsByPhone(@PathParam("phone") String phone) {
+        Person person = pfi.getPersonByPhone(phone);
+
+        if (person == null) {
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
+        }
+        return gson.toJson(person);
+    }
 
     
     

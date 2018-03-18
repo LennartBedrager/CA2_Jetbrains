@@ -22,6 +22,9 @@ public interface PersonFacadeInterface {
 
     public List<Person> getPersonsViaZipcode(int zip);
     
+    public Person getPersonByPhone(String phone);
+    
     public List<Person> getPersonsViaFirstName(String fname);
 
+    public List<Person> getPersonsViaLastName(String lname);
 }

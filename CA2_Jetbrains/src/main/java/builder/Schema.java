@@ -27,11 +27,6 @@ public class Schema {
 //        pg2.putGeneratedCompaniesInDatabase(300);
         
 
-    PersonFacadeImpl pfi = new PersonFacadeImpl();
-    Person p = new Person("Kasper","Vink");
-    pfi.updatePerson(p,272);
-    
-
     }
     
 }
