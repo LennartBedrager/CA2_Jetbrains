@@ -6,7 +6,7 @@ function updatePerson() {
     var firstName = document.getElementById("firstName").value;
     var lastName = document.getElementById("lastName").value;
 
-    var apiLink = "http://localhost:8084/CA2_Jetbrains/api/person/complete/"+id;
+    var apiLink = "https://hawkdon.dk/CA2/api/person/complete/"+id;
 
     var newPerson = {
         id: id,
